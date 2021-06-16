@@ -3,16 +3,13 @@ package com.example.accessingdatamysql;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
 import java.util.Optional;
 
 @Controller
+@CrossOrigin("*")
 @RequestMapping(path="/SQL")
 public class MainController {
     @Autowired
@@ -54,9 +51,14 @@ public class MainController {
         return czujnikiRepository.findById(id);
     }
 
+    @GetMapping(path="/deviceByStationID") // SELECT czujniki o ID stanowiska
+    public @ResponseBody Iterable<Czujniki> getDeviceByStation(@RequestParam int id) {
+        return czujnikiRepository.findByStaId(id);
+    }
+
     //ZAPISY
 
-    @GetMapping(path="/allReadings") // SELECT wszystkie zapisty
+    @GetMapping(path="/allReadings") // SELECT wszystkie zapisy
     public @ResponseBody Iterable<Zapisy> getAllReadings() {
         return zapisyRepository.findAll();
     }

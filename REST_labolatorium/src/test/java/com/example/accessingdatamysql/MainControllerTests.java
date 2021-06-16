@@ -72,6 +72,14 @@ class MainControllerTests {
     }
 
     @Test
+    void test_DeviceByStationId() throws Exception {
+        this.mvc.perform(get("/SQL/deviceByStationID?id=1")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
+    }
+
+    @Test
     void test_allReadings() throws Exception {
         this.mvc.perform(get("/SQL/allReadings")
                 .contentType(MediaType.APPLICATION_JSON))
